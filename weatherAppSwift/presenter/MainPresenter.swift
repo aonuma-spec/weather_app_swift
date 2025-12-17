@@ -34,8 +34,6 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
             minTempCityWeather = await fetchWeather(selectedCity: Constants.MIN_TEMP_CITY)
             maxTempCityWeather = await fetchWeather(selectedCity: Constants.MAX_TEMP_CITY)
         }
-        print("AA")
-        print(minTempCityWeather)
     }
     
     /**
@@ -44,7 +42,7 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
     func showError(_ error: Error) {
         print("エラー発生: \(error)") // <- デバッグ用
         hasError = true
-        errorMessage = error.localizedDescription
+        errorMessage = "エラーが発生しました"
     }
     
     /**

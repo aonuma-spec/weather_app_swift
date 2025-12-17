@@ -12,7 +12,7 @@
 
 /* Begin PBXFileReference section */
 		F9A139732EF249CC0068BF61 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		F9ADDFF72EEC0F5C00634A8D /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = weatherAppSwift.app; path = "/Users/onuma/StudioProjects/SwiftProject/weather_app_swift/build/Debug-iphoneos/weatherAppSwift.app"; sourceTree = "<absolute>"; };
+		F9A139792EF282DA0068BF61 /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,6 +52,7 @@
 			children = (
 				F9ADDFF92EEC0F5C00634A8D /* weatherAppSwift */,
 				F9A139732EF249CC0068BF61 /* .gitignore */,
+				F9A139792EF282DA0068BF61 /* weatherAppSwift.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,7 +78,7 @@
 			packageProductDependencies = (
 			);
 			productName = weatherAppSwift;
-			productReference = F9ADDFF72EEC0F5C00634A8D /* weatherAppSwift.app */;
+			productReference = F9A139792EF282DA0068BF61 /* weatherAppSwift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
