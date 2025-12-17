@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var selectedCity: CityModel = Constants.CITY_MODELS.first!
-    
-    let presenter = AppDI.makePresenter()
+    @StateObject private var presenter = AppDI.makePresenter()
     
     var body: some View {
         NavigationStack {
@@ -34,6 +33,17 @@ struct ContentView: View {
             .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            
+            //天気詳細画面への遷移
+            .navigationDestination(
+                isPresented: Binding(get: {presenter.weatherDetail != nil},
+                                     set: {_ in presenter.weatherDetail = nil}
+                                    )
+            ) {
+                if let detail = presenter.weatherDetail {
+                    WeatherDetailView(weatherDetail: detail)
+                }
+            }
         }
     }
 
@@ -51,7 +61,6 @@ struct ContentView: View {
      地域選択のプルダウン
      */
     @ViewBuilder private var cirtPicker: some View {
-//        let cities = Constants.CITY_LIST.sorted { $0.value < $1.value}
 
         Picker("地域を選択", selection: $selectedCity) {
             ForEach(Constants.CITY_MODELS) {city in

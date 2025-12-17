@@ -8,9 +8,9 @@
 import Foundation
 
 struct AppDI {
-    static func makePresenter() -> MainPresenter.Presenter {
+    static func makePresenter() -> MainPresenter {
         let apiService = WeatherApiService()
         let repository = WeatherRepository(weatherApiService: apiService)
-        return MainPresenter.Presenter(weatherRepository: repository)
+        return MainPresenter(weatherRepository: repository)
     }
 }

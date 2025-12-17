@@ -20,3 +20,19 @@ struct WeatherDetailModel {
     let maxTemp: Double
     let maxTempDiff: Double
 }
+
+extension WeatherDetailModel {
+    static let preview = WeatherDetailModel(
+        CityName: "東京",
+        weatherMain: "晴れ",
+        description: "快晴",
+        currentTemp: 12.3,
+        humidity: 50,
+        minPlaceName: "最低気温",
+        minTemp: 8.0,
+        minTempDiff: -2.0,
+        maxPlaceName: "最高気温",
+        maxTemp: 15.0,
+        maxTempDiff: 3.0
+    )
+}

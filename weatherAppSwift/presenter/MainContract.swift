@@ -13,6 +13,11 @@ struct MainContract {
          地域送信ボタンを押下した時に実行される関数
          */
         func onCitySubmitButtonClicked(selectedCity: String)
+        
+        /**
+         エラー時の処理
+         */
+        func showError(_ error: Error)
     }
 }
 

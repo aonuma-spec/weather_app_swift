@@ -6,55 +6,68 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
-struct MainPresenter{
-    struct Presenter :MainContract.Presenter {
-        
-        private let weatherRepository: WeatherRepositoryProtocol
-        
-        init(weatherRepository: WeatherRepositoryProtocol) {
-            self.weatherRepository = weatherRepository
+final class MainPresenter: ObservableObject, MainContract.Presenter {
+    @Published var weatherDetail: WeatherDetailModel? = nil
+    @Published var hasError: Bool = false
+    @Published var errorMessage: String? = nil
+    
+    private let weatherRepository: WeatherRepositoryProtocol
+    
+    init(weatherRepository: WeatherRepositoryProtocol) {
+        self.weatherRepository = weatherRepository
+    }
+    /**
+     地域送信ボタンを押下した時に実行される関数
+     */
+    func onCitySubmitButtonClicked(selectedCity: String) {
+        // 非同期でAPIの実行
+        Task {
+            await fetchWeather(selectedCity: selectedCity)
         }
-        /**
-         地域送信ボタンを押下した時に実行される関数
-         */
-        func onCitySubmitButtonClicked(selectedCity: String) {
-            // 非同期でAPIの実行
-            fetchWeather(selectedCity: selectedCity)
+        
+        // 次の画面に移動
+    }
+    
+    /**
+     エラーの表示
+     */
+    func showError(_ error: Error) {
+        hasError = true
+        errorMessage = error.localizedDescription
+    }
+    
+    /**
+     非同期でAPIの実行
+     */
+    private func fetchWeather(selectedCity: String) async {
+        do {
             
-            // 次の画面に移動
+            //APIを非同期で実行
+            let response = try await weatherRepository.fetchWeatherData(city: selectedCity)
+            
+            //APIレスポンスを天気詳細画面用のモデルに変換
+            let detail = WeatherDetailModel(
+                CityName: response.name,
+                weatherMain: response.weather.first?.main ?? "",
+                description: response.weather.first?.description ?? "",
+                currentTemp: response.main.temp,
+                humidity: response.main.humidity,
+                minPlaceName: "最低気温",
+                minTemp: response.main.temp_min ?? 0,
+                minTempDiff: 0,
+                maxPlaceName: "最高気温",
+                maxTemp: response.main.temp_max ?? 0,
+                maxTempDiff: 0
+            )
+            
+            self.weatherDetail = detail
+            
+        } catch {
+            showError(error)
         }
-        
-        /**
-         非同期でAPIの実行
-         */
-        private func fetchWeather(selectedCity: String) {
-            Task {
-                
-                do {
-                    let result = try await weatherRepository.fetchWeatherData(city: selectedCity)
-                    print(result)
-                } catch let error as URLError {
-                    switch error.code {
-                    case .badURL:
-                        print("URLが不正です")
-                    case .badServerResponse:
-                        print("サーバーエラーです")
-                    case .notConnectedToInternet:
-                        print("インターネットに接続されていません")
-                    default:
-                        print("通信エラー: \(error)")
-                    }
-                } catch {
-                    print("エラー: \(error)")
-                }
-                
-            }
-            // エラーの判定
-        }
-        
-        
     }
 }
 

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct WeatherDetailView: View {
+    
+    let weatherDetail: WeatherDetailModel
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -42,7 +45,7 @@ struct WeatherDetailView: View {
      地域名
      */
     @ViewBuilder private var cityNameTitle: some View {
-        Text("東京")
+        Text(weatherDetail.CityName)
             .font(.title2)
             .frame(maxWidth: 300)
             .foregroundStyle(Color.white)
@@ -57,8 +60,10 @@ struct WeatherDetailView: View {
     /**
      地域画像
      */
+    
     @ViewBuilder private var weatherImage: some View {
-        Image("mark_tenki_hare")
+        
+        Image(setWeatherImageString(weather: weatherDetail.weatherMain))
             .resizable()
             .scaledToFit()
             .frame(maxWidth: 200)
@@ -69,15 +74,15 @@ struct WeatherDetailView: View {
      */
     @ViewBuilder private var weatherData: some View {
         VStack {
-            weatherDataRow(subTitle: "天気", weatherData: "曇りがち")
-            weatherDataRow(subTitle: "温度", weatherData: "12.2 度")
-            weatherDataRow(subTitle: "湿度", weatherData: "51 %")
+            weatherDataRow(subTitle: "天気", weatherData: weatherDetail.description)
+            weatherDataRow(subTitle: "温度", weatherData: "\(weatherDetail.currentTemp) 度")
+            weatherDataRow(subTitle: "湿度", weatherData: "\(weatherDetail.humidity) %")
         }
     }
 
     @ViewBuilder private var tempDiffAreas: some View {
         VStack {
-            Text("東京都各地の気温差について")
+            Text("\(weatherDetail.CityName)と各地の気温差について")
                 .font(.title2)
             List {
                 Text(
@@ -123,6 +128,23 @@ struct WeatherDetailView: View {
     }
 }
 
+func setWeatherImageString(weather: String) -> String {
+        var weatherImage: String = "mark_tenki_hare"
+        switch weather {
+            case "Clear":
+                weatherImage = "mark_tenki_hare"
+            case "Clouds":
+                weatherImage = "mark_tenki_kumori"
+            case "Rain":
+                weatherImage = "mark_tenki_umbrella"
+            case "Snow":
+                weatherImage = "tenki_snow"
+            default:
+                weatherImage = "mark_question"
+        }
+    return weatherImage
+}
+
 #Preview {
-    WeatherDetailView()
+    WeatherDetailView(weatherDetail: .preview)
 }
