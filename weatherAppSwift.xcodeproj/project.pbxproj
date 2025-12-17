@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F9A139742EF249CC0068BF61 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F9A139732EF249CC0068BF61 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		F9ADDFF72EEC0F5C00634A8D /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9A139732EF249CC0068BF61 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F9ADDFF72EEC0F5C00634A8D /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = weatherAppSwift.app; path = "/Users/onuma/StudioProjects/SwiftProject/weather_app_swift/build/Debug-iphoneos/weatherAppSwift.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -46,16 +51,8 @@
 			isa = PBXGroup;
 			children = (
 				F9ADDFF92EEC0F5C00634A8D /* weatherAppSwift */,
-				F9ADDFF82EEC0F5C00634A8D /* Products */,
+				F9A139732EF249CC0068BF61 /* .gitignore */,
 			);
-			sourceTree = "<group>";
-		};
-		F9ADDFF82EEC0F5C00634A8D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F9ADDFF72EEC0F5C00634A8D /* weatherAppSwift.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,7 +105,7 @@
 			mainGroup = F9ADDFEE2EEC0F5C00634A8D;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = F9ADDFF82EEC0F5C00634A8D /* Products */;
+			productRefGroup = F9ADDFEE2EEC0F5C00634A8D;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -122,6 +119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A139742EF249CC0068BF61 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

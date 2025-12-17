@@ -11,6 +11,11 @@ import SwiftUI
 struct MainPresenter{
     struct Presenter :MainContract.Presenter {
         
+        private let weatherRepository: WeatherRepositoryProtocol
+        
+        init(weatherRepository: WeatherRepositoryProtocol) {
+            self.weatherRepository = weatherRepository
+        }
         /**
          地域送信ボタンを押下した時に実行される関数
          */
@@ -28,9 +33,8 @@ struct MainPresenter{
             Task {
                 
                 do {
-                    //            !!! DI変更予定 !!!
-                    let weatherRepository = WeatherRepository()
                     let result = try await weatherRepository.fetchWeatherData(city: selectedCity)
+                    print(result)
                 } catch let error as URLError {
                     switch error.code {
                     case .badURL:

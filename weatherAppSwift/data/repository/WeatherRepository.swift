@@ -17,12 +17,13 @@ protocol WeatherRepositoryProtocol {
  Presenterから呼び出されるAPI実行関数
  */
 struct WeatherRepository: WeatherRepositoryProtocol {
+
     private let weatherApiService: WeatherApiServiceProtcol
     private let weatherResponseRepository: WeatherResponseRepositoryProtocol
-    
-    init (
+
+    init(
         weatherApiService: WeatherApiServiceProtcol,
-        weatherResponseRepository: WeatherResponseRepositoryProtocol
+        weatherResponseRepository: WeatherResponseRepositoryProtocol = WeatherResponseRepository()
     ) {
         self.weatherApiService = weatherApiService
         self.weatherResponseRepository = weatherResponseRepository
@@ -30,12 +31,9 @@ struct WeatherRepository: WeatherRepositoryProtocol {
     
     // APIを実行し、結果をJSONパースして受け取る
     func fetchWeatherData(city: String) async throws -> WeatherApiResponseModel {
-        let weatherApiService = WeatherApiService()
-        let repository = WeatherResponseRepository()
-    
         let jsonData = try await weatherApiService.fetchWeather(city: city)
-        let decodedData = try repository.wetherApiResponseDecoding(from: jsonData)
+        let decodedData = try weatherResponseRepository
+            .wetherApiResponseDecoding(from: jsonData)
         return decodedData
-        
     }
 }
