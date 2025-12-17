@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		F9A139742EF249CC0068BF61 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F9A139732EF249CC0068BF61 /* .gitignore */; };
 		F9E5FC182EF2A49E003CFAFC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F9E5FC172EF2A49E003CFAFC /* README.md */; };
+		F9E5FC1B2EF2A8D7003CFAFC /* app_view1.png in Resources */ = {isa = PBXBuildFile; fileRef = F9E5FC192EF2A8D7003CFAFC /* app_view1.png */; };
+		F9E5FC1C2EF2A8D7003CFAFC /* app_view2.png in Resources */ = {isa = PBXBuildFile; fileRef = F9E5FC1A2EF2A8D7003CFAFC /* app_view2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F9A139732EF249CC0068BF61 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		F9A139792EF282DA0068BF61 /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E5FC172EF2A49E003CFAFC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F9E5FC192EF2A8D7003CFAFC /* app_view1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_view1.png; sourceTree = "<group>"; };
+		F9E5FC1A2EF2A8D7003CFAFC /* app_view2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_view2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -56,6 +60,8 @@
 				F9A139732EF249CC0068BF61 /* .gitignore */,
 				F9A139792EF282DA0068BF61 /* weatherAppSwift.app */,
 				F9E5FC172EF2A49E003CFAFC /* README.md */,
+				F9E5FC192EF2A8D7003CFAFC /* app_view1.png */,
+				F9E5FC1A2EF2A8D7003CFAFC /* app_view2.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +129,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9E5FC1B2EF2A8D7003CFAFC /* app_view1.png in Resources */,
+				F9E5FC1C2EF2A8D7003CFAFC /* app_view2.png in Resources */,
 				F9E5FC182EF2A49E003CFAFC /* README.md in Resources */,
 				F9A139742EF249CC0068BF61 /* .gitignore in Resources */,
 			);
