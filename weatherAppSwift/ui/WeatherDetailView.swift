@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WeatherDetailView: View {
+    // 画面のPortlate, landScapeの設定用
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     let weatherDetail: WeatherDetailModel
     let minTempCityWeather: WeatherDetailModel?
@@ -15,19 +17,40 @@ struct WeatherDetailView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-            // 地域名
-                cityNameTitle
-                    .padding(.top, 18)
-            // 地域画像
-                weatherImage
-                    .padding(.top, 18)
-            // 天気情報詳細
-                weatherData
-                    .padding(.top, 18)
-            // 各地との気温差
-                tempDiffAreas
-                    .padding(.top, 36)
+            Group {
+                if verticalSizeClass == .compact {
+                    // 横向き
+                    HStack {
+                        VStack {
+                            // 地域名
+                            cityNameTitle
+                                .padding(.top, 18)
+                            // 天気画像
+                            weatherImage(landScape: true)
+                            // 天気情報詳細
+                            weatherData
+                                .padding(.leading, 18)
+                        }
+                        // 各地との気温差
+                        tempDiffAreas
+                            .padding(.top, 36)
+                    }
+                } else {
+                    // 縦向き
+                    VStack {
+                        // 地域名
+                        cityNameTitle
+                            .padding(.top, 18)
+                        // 地域画像
+                        weatherImage(landScape: false)
+                        // 天気情報詳細
+                        weatherData
+                            .padding(.top, 18)
+                        // 各地との気温差
+                        tempDiffAreas
+                            .padding(.top, 18)
+                    }
+                }
             }
             // アプリタイトル
             .navigationTitle("天気詳細")
@@ -62,12 +85,14 @@ struct WeatherDetailView: View {
     /**
      地域画像
      */
-    @ViewBuilder private var weatherImage: some View {
+    @ViewBuilder
+    private func weatherImage(landScape: Bool) -> some View {
         
+        let size: CGFloat = landScape ? 100 : 200
         Image(setWeatherImageString(weather: weatherDetail.weatherMain))
             .resizable()
             .scaledToFit()
-            .frame(maxWidth: 200)
+            .frame(maxWidth: size)
     }
 
     /**
@@ -95,15 +120,15 @@ struct WeatherDetailView: View {
             Text("\(weatherDetail.CityName)と各地の気温差について")
                 .font(.title2)
             
-            List {
+            ScrollView {
                 if let minCity = minTempCityWeather {
                     let minTempDiff = calcTempDiff(
                         temp: minCity.currentTemp,
                         targetTemp: weatherDetail.currentTemp
                     )
                     Text("日本で平均気温が低い「\(minCity.CityName)（現在\(doubleToString(source: minCity.currentTemp))度）」より\(minTempDiff)度暖かいです")
+                        .padding(.bottom, 6)
                 }
-                
                 if let maxCity = maxTempCityWeather {
                     let maxTempDiff = calcTempDiff(
                         temp: maxCity.currentTemp,
@@ -112,9 +137,11 @@ struct WeatherDetailView: View {
                     Text("日本で平均気温が高い「\(maxCity.CityName)（現在\(doubleToString(source: maxCity.currentTemp))度）」より\(maxTempDiff)度低いです")
                 }
             }
+            .padding()
             .listStyle(PlainListStyle())
             .scrollContentBackground(.hidden)
         }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     /**
@@ -129,7 +156,7 @@ struct WeatherDetailView: View {
                 Text("\(subTitle)")
                     .foregroundStyle(Color.white)
                     .frame(width: 50)
-                    .padding(10)
+                    .padding(3)
                     .background(
                         Color(
                             red: 0x38/255.0,
@@ -144,6 +171,8 @@ struct WeatherDetailView: View {
                     )
                     .padding(.leading, 16)
             }
+            .background(Color.clear)
+            .padding(.all,2)
         }
     }
 }

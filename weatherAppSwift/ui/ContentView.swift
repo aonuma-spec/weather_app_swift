@@ -8,21 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    // 初期選択する地域
     @State var selectedCity: CityModel = Constants.CITY_MODELS.first!
     
+    // DIを設定
     @StateObject private var presenter = AppDI.makePresenter()
+    
+    // 画面のPortlate, landScapeの設定用
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         NavigationStack {
-            VStack {
-                // 画像
-                topImage
-                // 地域選択のプルダウン
-                cirtPicker
-                    .padding(.top, 24)
-                // 地域送信ボタン
-                weatherSubmitBtn
-                    .padding(.top, 18)
+            Group {
+                if verticalSizeClass == .compact {
+                    // 横向き
+                    HStack {
+                        // 画像
+                        topImage(landscape: true)
+                        // 地域選択のプルダウン
+                        VStack {
+                            Text("地域を選択してください")
+                            cirtPicker
+                                .padding(.top, 24)
+                            // 地域送信ボタン
+                            weatherSubmitBtn
+                                .padding(.top, 18)
+                        }
+                        .padding(.leading,72)
+                    }
+                } else {
+                    VStack {
+                        // 縦向き
+                        // 画像
+                        topImage(landscape: false)
+                        Text("地域を選択してください")
+                        // 地域選択のプルダウン
+                        cirtPicker
+                        // 地域送信ボタン
+                        weatherSubmitBtn
+                            .padding(.top, 18)
+                    }
+                }
             }
             // アプリタイトル
             .navigationTitle("天気アプリ")
@@ -61,22 +87,25 @@ struct ContentView: View {
             )
         }
     }
-
+    
     /**
      トップ画像
      */
-    @ViewBuilder private var topImage: some View {
+    @ViewBuilder
+    private func topImage(landscape: Bool) -> some View {
+        let size: CGFloat = landscape ? 200 : 300
+
         Image("job_otenki_oneesan")
             .resizable()
             .scaledToFit()
-            .frame(maxWidth: 300)
+            .frame(maxWidth: size)
     }
-
+    
     /**
      地域選択のプルダウン
      */
     @ViewBuilder private var cirtPicker: some View {
-
+        
         Picker("地域を選択", selection: $selectedCity) {
             ForEach(Constants.CITY_MODELS) {city in
                 Text(city.cityName).tag(city)
@@ -84,7 +113,7 @@ struct ContentView: View {
         }
         .pickerStyle(.menu)
     }
-
+    
     /**
      地域送信ボタン
      */
