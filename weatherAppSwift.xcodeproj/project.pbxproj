@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F9A139742EF249CC0068BF61 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F9A139732EF249CC0068BF61 /* .gitignore */; };
+		F9E5FC7A2EF2AA63003CFAFC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F9E5FC792EF2AA63003CFAFC /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F9A139732EF249CC0068BF61 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		F9A139792EF282DA0068BF61 /* weatherAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9E5FC792EF2AA63003CFAFC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,6 +55,7 @@
 				F9ADDFF92EEC0F5C00634A8D /* weatherAppSwift */,
 				F9A139732EF249CC0068BF61 /* .gitignore */,
 				F9A139792EF282DA0068BF61 /* weatherAppSwift.app */,
+				F9E5FC792EF2AA63003CFAFC /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +123,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9E5FC7A2EF2AA63003CFAFC /* README.md in Resources */,
 				F9A139742EF249CC0068BF61 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
