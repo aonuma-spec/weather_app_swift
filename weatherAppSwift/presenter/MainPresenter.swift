@@ -10,6 +10,9 @@ import Combine
 
 @MainActor
 final class MainPresenter: ObservableObject, MainContract.Presenter {
+    @Published var selectedCityWeather: WeatherDetailModel? = nil
+    @Published var minTempCityWeather: WeatherDetailModel? = nil
+    @Published var maxTempCityWeather: WeatherDetailModel? = nil
     @Published var weatherDetail: WeatherDetailModel? = nil
     @Published var hasError: Bool = false
     @Published var errorMessage: String? = nil
@@ -25,16 +28,21 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
     func onCitySubmitButtonClicked(selectedCity: String) {
         // 非同期でAPIの実行
         Task {
-            await fetchWeather(selectedCity: selectedCity)
+            if let detail = await fetchWeather(selectedCity: selectedCity) {
+                self.weatherDetail = detail
+            }
+            minTempCityWeather = await fetchWeather(selectedCity: Constants.MIN_TEMP_CITY)
+            maxTempCityWeather = await fetchWeather(selectedCity: Constants.MAX_TEMP_CITY)
         }
-        
-        // 次の画面に移動
+        print("AA")
+        print(minTempCityWeather)
     }
     
     /**
      エラーの表示
      */
     func showError(_ error: Error) {
+        print("エラー発生: \(error)") // <- デバッグ用
         hasError = true
         errorMessage = error.localizedDescription
     }
@@ -42,9 +50,8 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
     /**
      非同期でAPIの実行
      */
-    private func fetchWeather(selectedCity: String) async {
+    func fetchWeather(selectedCity: String) async -> WeatherDetailModel? {
         do {
-            
             //APIを非同期で実行
             let response = try await weatherRepository.fetchWeatherData(city: selectedCity)
             
@@ -55,18 +62,14 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
                 description: response.weather.first?.description ?? "",
                 currentTemp: response.main.temp,
                 humidity: response.main.humidity,
-                minPlaceName: "最低気温",
-                minTemp: response.main.temp_min ?? 0,
-                minTempDiff: 0,
-                maxPlaceName: "最高気温",
-                maxTemp: response.main.temp_max ?? 0,
-                maxTempDiff: 0
             )
             
-            self.weatherDetail = detail
+//            self.weatherDetail = detail
+            return detail
             
         } catch {
             showError(error)
+            return nil
         }
     }
 }

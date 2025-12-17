@@ -10,6 +10,8 @@ import SwiftUI
 struct WeatherDetailView: View {
     
     let weatherDetail: WeatherDetailModel
+    let minTempCityWeather: WeatherDetailModel?
+    let maxTempCityWeather: WeatherDetailModel?
     
     var body: some View {
         NavigationStack {
@@ -60,7 +62,6 @@ struct WeatherDetailView: View {
     /**
      地域画像
      */
-    
     @ViewBuilder private var weatherImage: some View {
         
         Image(setWeatherImageString(weather: weatherDetail.weatherMain))
@@ -74,9 +75,18 @@ struct WeatherDetailView: View {
      */
     @ViewBuilder private var weatherData: some View {
         VStack {
-            weatherDataRow(subTitle: "天気", weatherData: weatherDetail.description)
-            weatherDataRow(subTitle: "温度", weatherData: "\(weatherDetail.currentTemp) 度")
-            weatherDataRow(subTitle: "湿度", weatherData: "\(weatherDetail.humidity) %")
+            weatherDataRow(
+                subTitle: "天気",
+                weatherData: weatherDetail.description
+            )
+            weatherDataRow(
+                subTitle: "温度",
+                weatherData: "\(doubleToString(source: weatherDetail.currentTemp)) 度"
+            )
+            weatherDataRow(
+                subTitle: "湿度",
+                weatherData: "\(weatherDetail.humidity) %"
+            )
         }
     }
 
@@ -84,13 +94,23 @@ struct WeatherDetailView: View {
         VStack {
             Text("\(weatherDetail.CityName)と各地の気温差について")
                 .font(.title2)
+            
             List {
-                Text(
-                    "日本で平均気温が低い「陸別（現在6.5度）」より7.07度暖かいです"
-                )
-                Text(
-                    "日本で平均気温が低い「陸別（現在6.5度）」より7.07度暖かいです"
-                )
+                if let minCity = minTempCityWeather {
+                    let minTempDiff = calcTempDiff(
+                        temp: minCity.currentTemp,
+                        targetTemp: weatherDetail.currentTemp
+                    )
+                    Text("日本で平均気温が低い「\(minCity.CityName)（現在\(doubleToString(source: minCity.currentTemp))度）」より\(minTempDiff)度暖かいです")
+                }
+                
+                if let maxCity = maxTempCityWeather {
+                    let maxTempDiff = calcTempDiff(
+                        temp: maxCity.currentTemp,
+                        targetTemp: weatherDetail.currentTemp
+                    )
+                    Text("日本で平均気温が高い「\(maxCity.CityName)（現在\(doubleToString(source: maxCity.currentTemp))度）」より\(maxTempDiff)度低いです")
+                }
             }
             .listStyle(PlainListStyle())
             .scrollContentBackground(.hidden)
@@ -128,23 +148,7 @@ struct WeatherDetailView: View {
     }
 }
 
-func setWeatherImageString(weather: String) -> String {
-        var weatherImage: String = "mark_tenki_hare"
-        switch weather {
-            case "Clear":
-                weatherImage = "mark_tenki_hare"
-            case "Clouds":
-                weatherImage = "mark_tenki_kumori"
-            case "Rain":
-                weatherImage = "mark_tenki_umbrella"
-            case "Snow":
-                weatherImage = "tenki_snow"
-            default:
-                weatherImage = "mark_question"
-        }
-    return weatherImage
-}
 
 #Preview {
-    WeatherDetailView(weatherDetail: .preview)
+    WeatherDetailView(weatherDetail: .preview, minTempCityWeather: .preview, maxTempCityWeather: .preview)
 }

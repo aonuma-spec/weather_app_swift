@@ -18,6 +18,11 @@ struct MainContract {
          エラー時の処理
          */
         func showError(_ error: Error)
+        
+        /**
+         非同期でAPIの実行
+         */
+        func fetchWeather(selectedCity: String) async -> WeatherDetailModel?
     }
 }
 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var selectedCity: CityModel = Constants.CITY_MODELS.first!
+    
     @StateObject private var presenter = AppDI.makePresenter()
     
     var body: some View {
@@ -41,9 +42,23 @@ struct ContentView: View {
                                     )
             ) {
                 if let detail = presenter.weatherDetail {
-                    WeatherDetailView(weatherDetail: detail)
+                    WeatherDetailView(
+                        weatherDetail: detail,
+                        minTempCityWeather: presenter.minTempCityWeather,
+                        maxTempCityWeather: presenter.maxTempCityWeather
+                    )
                 }
             }
+        }
+        // Presenterのエラー状態を監視してAlert表示
+        .alert(isPresented: $presenter.hasError) {
+            Alert(
+                title: Text("エラー"),
+                message: Text(presenter.errorMessage ?? "不明なエラー"),
+                dismissButton: .default(Text("OK")) {
+                    presenter.hasError = false // Alert閉じたらフラグリセット
+                }
+            )
         }
     }
 

@@ -18,4 +18,7 @@ struct Constants{
         CityModel(cityName: "鹿児島", cityValue: "kagoshima"),
         CityModel(cityName: "沖縄", cityValue: "okinawa"),
     ]
+    
+    static let MIN_TEMP_CITY = "rikubetsu"
+    static let MAX_TEMP_CITY = "okinawa"
 }

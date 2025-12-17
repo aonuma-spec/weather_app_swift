@@ -13,12 +13,6 @@ struct WeatherDetailModel {
     let description: String
     let currentTemp: Double
     let humidity: Int
-    let minPlaceName: String
-    let minTemp: Double
-    let minTempDiff: Double
-    let maxPlaceName: String
-    let maxTemp: Double
-    let maxTempDiff: Double
 }
 
 extension WeatherDetailModel {
@@ -28,11 +22,5 @@ extension WeatherDetailModel {
         description: "快晴",
         currentTemp: 12.3,
         humidity: 50,
-        minPlaceName: "最低気温",
-        minTemp: 8.0,
-        minTempDiff: -2.0,
-        maxPlaceName: "最高気温",
-        maxTemp: 15.0,
-        maxTempDiff: 3.0
     )
 }
