@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedCityCode: String = "tokyo"
+    @State var selectedCity: CityModel = Constants.CITY_MODELS.first!
+    
+    let presenter = AppDI.makePresenter()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -48,20 +51,24 @@ struct ContentView: View {
      地域選択のプルダウン
      */
     @ViewBuilder private var cirtPicker: some View {
-        let cities = Constants.CITY_LIST.sorted { $0.value < $1.value}
+//        let cities = Constants.CITY_LIST.sorted { $0.value < $1.value}
 
-        Picker("地域を選択", selection: $selectedCityCode) {
-            ForEach(cities, id: \.key) {city in
-                Text(city.value).tag(city.key)
+        Picker("地域を選択", selection: $selectedCity) {
+            ForEach(Constants.CITY_MODELS) {city in
+                Text(city.cityName).tag(city)
             }
         }
+        .pickerStyle(.menu)
     }
 
     /**
      地域送信ボタン
      */
     @ViewBuilder private var weatherSubmitBtn: some View {
-        Button(action: {}) {
+        Button(action: {
+            presenter.onCitySubmitButtonClicked(selectedCity: selectedCity.cityValue)
+        })
+        {
             Text("送信する")
                 .foregroundColor(.white)
                 .padding()
@@ -69,6 +76,7 @@ struct ContentView: View {
         .background(Color.blue)
     }
 }
+
 
 #Preview {
     ContentView()

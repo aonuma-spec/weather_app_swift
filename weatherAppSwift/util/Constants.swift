@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct Constants{
-    static let CITY_LIST: [String:String] = [
-        "tokyo":"東京",
-        "sapporo":"札幌",
-        "sendai":"仙台",
-        "niigata":"新潟",
-        "tochigi":"栃木",
-        "osaka":"大阪",
-        "kagoshima":"鹿児島",
-        "okinawa":"沖縄",
+    static let CITY_MODELS: [CityModel] = [
+        CityModel(cityName: "東京", cityValue: "tokyo"),
+        CityModel(cityName: "札幌", cityValue: "sapporo"),
+        CityModel(cityName: "仙台", cityValue: "sendai"),
+        CityModel(cityName: "新潟", cityValue: "niigata"),
+        CityModel(cityName: "栃木", cityValue: "tochigi"),
+        CityModel(cityName: "大阪", cityValue: "osaka"),
+        CityModel(cityName: "鹿児島", cityValue: "kagoshima"),
+        CityModel(cityName: "沖縄", cityValue: "okinawa"),
     ]
 }
