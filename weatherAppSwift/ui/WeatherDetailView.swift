@@ -70,7 +70,7 @@ struct WeatherDetailView: View {
      地域名
      */
     @ViewBuilder private var cityNameTitle: some View {
-        Text(weatherDetail.CityName)
+        Text(weatherDetail.cityName)
             .font(.title2)
             .frame(maxWidth: 300)
             .foregroundStyle(Color.white)
@@ -117,7 +117,7 @@ struct WeatherDetailView: View {
 
     @ViewBuilder private var tempDiffAreas: some View {
         VStack {
-            Text("\(weatherDetail.CityName)と各地の気温差について")
+            Text("\(weatherDetail.cityName)と各地の気温差について")
                 .font(.title2)
             
             ScrollView {
@@ -126,7 +126,7 @@ struct WeatherDetailView: View {
                         temp: minCity.currentTemp,
                         targetTemp: weatherDetail.currentTemp
                     )
-                    Text("日本で平均気温が低い「\(minCity.CityName)（現在\(doubleToString(source: minCity.currentTemp))度）」より\(minTempDiff)度暖かいです")
+                    Text("日本で平均気温が低い「\(minCity.cityName)（現在\(doubleToString(source: minCity.currentTemp))度）」より\(minTempDiff)度暖かいです")
                         .padding(.bottom, 6)
                 }
                 if let maxCity = maxTempCityWeather {
@@ -134,7 +134,7 @@ struct WeatherDetailView: View {
                         temp: maxCity.currentTemp,
                         targetTemp: weatherDetail.currentTemp
                     )
-                    Text("日本で平均気温が高い「\(maxCity.CityName)（現在\(doubleToString(source: maxCity.currentTemp))度）」より\(maxTempDiff)度低いです")
+                    Text("日本で平均気温が高い「\(maxCity.cityName)（現在\(doubleToString(source: maxCity.currentTemp))度）」より\(maxTempDiff)度低いです")
                 }
             }
             .padding()

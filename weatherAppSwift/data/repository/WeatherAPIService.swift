@@ -11,7 +11,7 @@ import SwiftUI
 /**
  天気情報取得API（プロトコル）
  */
-protocol WeatherApiServiceProtcol {
+protocol WeatherApiServiceProtocol {
     // 天気情報取得APIを実行
     func fetchWeather(city: String) async throws -> Data
 }
@@ -19,20 +19,24 @@ protocol WeatherApiServiceProtcol {
 /**
  天気情報取得API
  */
-class WeatherApiService: WeatherApiServiceProtcol {
+class WeatherApiService: WeatherApiServiceProtocol {
     
+    let baseUrl: String
+    
+    init() {
+        // API実行URLを設定
+        self.baseUrl = Bundle.main.object(forInfoDictionaryKey: "ENV_API_ENDPOINT") as? String ?? ""
+    }
     // 天気情報取得APIを実行
     func fetchWeather(city: String) async throws -> Data {
-        // API実行URLを設定
-        let BaseUrl = Bundle.main.object(forInfoDictionaryKey: "ENV_API_ENDPOINT") as? String
         
-        // API実行URLが異常な場合
-        if BaseUrl == nil || BaseUrl == "" {
+        guard !baseUrl.isEmpty,
+              var urlComponents = URLComponents(string: baseUrl) else {
             throw URLError(.badURL)
         }
+        urlComponents.queryItems = [URLQueryItem(name: "city", value: city)]
         
-        // URL形式ではなかった場合
-        guard let BaseUrlString = BaseUrl, let url = URL(string: BaseUrlString + city) else {
+        guard let url = urlComponents.url else {
             throw URLError(.badURL)
         }
         
