@@ -8,7 +8,7 @@
 import Foundation
 
 struct WeatherDetailModel {
-    let CityName: String
+    let cityName: String
     let weatherMain: String
     let description: String
     let currentTemp: Double
@@ -17,7 +17,7 @@ struct WeatherDetailModel {
 
 extension WeatherDetailModel {
     static let preview = WeatherDetailModel(
-        CityName: "東京",
+        cityName: "東京",
         weatherMain: "晴れ",
         description: "快晴",
         currentTemp: 12.3,
