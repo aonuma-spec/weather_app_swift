@@ -24,15 +24,15 @@ class WeatherApiService: WeatherApiServiceProtcol {
     // 天気情報取得APIを実行
     func fetchWeather(city: String) async throws -> Data {
         // API実行URLを設定
-        let BaseUrl = Bundle.main.object(forInfoDictionaryKey: "ENV_API_ENDPOINT") as? String
+        let baseUrl = Bundle.main.object(forInfoDictionaryKey: "ENV_API_ENDPOINT") as? String
         
         // API実行URLが異常な場合
-        if BaseUrl == nil || BaseUrl == "" {
+        if baseUrl == nil || baseUrl == "" {
             throw URLError(.badURL)
         }
         
         // URL形式ではなかった場合
-        guard let BaseUrlString = BaseUrl, let url = URL(string: BaseUrlString + city) else {
+        guard let baseUrlString = baseUrl, let url = URL(string: baseUrlString + city) else {
             throw URLError(.badURL)
         }
         
