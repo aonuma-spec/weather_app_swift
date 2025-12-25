@@ -55,7 +55,7 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
             
             //APIレスポンスを天気詳細画面用のモデルに変換
             let detail = WeatherDetailModel(
-                CityName: response.name,
+                cityName: response.name,
                 weatherMain: response.weather.first?.main ?? "",
                 description: response.weather.first?.description ?? "",
                 currentTemp: response.main.temp,
