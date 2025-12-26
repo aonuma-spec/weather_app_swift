@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     // 初期選択する地域
-    @State var selectedCity: CityModel = Constants.CITY_MODELS.first!
+    @State var selectedCity: CityModel = Constants.CITY_MODELS.first ?? CityModel(cityName: "", cityValue: "")
     
     // DIを設定
     @StateObject private var presenter = AppDI.makePresenter()

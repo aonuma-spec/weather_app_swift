@@ -18,11 +18,11 @@ protocol WeatherRepositoryProtocol {
  */
 struct WeatherRepository: WeatherRepositoryProtocol {
 
-    private let weatherApiService: WeatherApiServiceProtcol
+    private let weatherApiService: WeatherApiServiceProtocol
     private let weatherResponseRepository: WeatherResponseRepositoryProtocol
 
     init(
-        weatherApiService: WeatherApiServiceProtcol,
+        weatherApiService: WeatherApiServiceProtocol,
         weatherResponseRepository: WeatherResponseRepositoryProtocol = WeatherResponseRepository()
     ) {
         self.weatherApiService = weatherApiService
