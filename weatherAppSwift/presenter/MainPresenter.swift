@@ -28,11 +28,12 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
     func onCitySubmitButtonClicked(selectedCity: String) {
         // 非同期でAPIの実行
         Task {
-            if let detail = await fetchWeather(selectedCity: selectedCity) {
-                self.weatherDetail = detail
-            }
-            minTempCityWeather = await fetchWeather(selectedCity: Constants.MIN_TEMP_CITY)
-            maxTempCityWeather = await fetchWeather(selectedCity: Constants.MAX_TEMP_CITY)
+            async let detail = fetchWeather(selectedCity: selectedCity)
+            async let min = fetchWeather(selectedCity: Constants.MIN_TEMP_CITY)
+            async let max = fetchWeather(selectedCity: Constants.MAX_TEMP_CITY)
+            self.weatherDetail = await detail
+            minTempCityWeather = await min
+            maxTempCityWeather = await max
         }
     }
     
@@ -61,10 +62,9 @@ final class MainPresenter: ObservableObject, MainContract.Presenter {
                 currentTemp: response.main.temp,
                 humidity: response.main.humidity,
             )
-            
-//            self.weatherDetail = detail
+
             return detail
-            
+
         } catch {
             showError(error)
             return nil
